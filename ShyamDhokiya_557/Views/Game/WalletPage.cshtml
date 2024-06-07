@@ -1,0 +1,58 @@
+﻿<div class="container-fluid mt-5">
+    <div class="row d-flex justify-content-between mb-4">
+        <div class="col-3">
+            <input type="text" id="Number" class="form-control" readonly />
+        </div>
+    </div>
+    <div class="Error">
+        <p id="Error" class="text-danger"></p>
+    </div>
+    <div class="mt-3 d-flex">
+        <button type="button" class="btn btn-success mx-2" id="generateNumber">Generate Number</button>
+        <button type="button" class="btn btn-success mx-2" id="buyChance">Buy Chances</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#generateNumber").on("click", function () {
+            var randomNumber = Math.floor(Math.random() * 100) + 1;
+            $("#Number").val(randomNumber);
+            $.ajax({
+                type: "POST",
+                url: "/Game/AddAmount?RandomNumber=" + randomNumber,
+                success: function (data) {
+                    console.log(data.status)
+                    if (data.status == -2) {
+                        toastr.error("you have no chance left");
+                        return;
+                    } else if (data.status == -1) {
+                        toastr.error("you have Exceeed Today Limit");
+                        return;
+                    } else if (data.status == 1) {
+                        toastr.success("Added Amount SuccessFully");
+                        return
+                    } else {
+                        toastr.error("Something Went Wrong")
+                    }
+                }
+            })
+
+
+        })
+
+        $("#buyChance").on("click", function () {
+            $.ajax({
+                type: "POST",
+                url: "/Game/BuyChance",
+                success: function (data) {
+                    if (data.success) {
+                        toastr.success("You buy a One Chance");
+                    } else {
+                        toastr.error("Somehting is Wrong");
+                    }
+                }
+            })
+        })
+
+    })
+</script>

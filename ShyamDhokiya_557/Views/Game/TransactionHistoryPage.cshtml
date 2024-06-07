@@ -1,0 +1,70 @@
+﻿@model List<ShyamDhokiya_557_Model.ViewModel.TransactionModel>
+
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Wallet Amount
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalAmount</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Chance Left
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.ChanceLeft</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Amount</th>
+                <th>Closing Balance</th>
+            </tr>
+        </thead>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Time.ToString().Split(' ')[0]</td>
+                    <td>@item.Time.ToString().Split(' ')[1]</td>
+                    @if (item.IsDebitCredit == true)
+                    {
+                        <td class="text-success"><span>+</span> @item.Amount</td>
+                    }
+                    else
+                    {
+                        <td class="text-danger"><span>-</span>  @item.Amount</td>
+                    }
+                    <td>@item.TotalAmount</td>
+                </tr>
+            }
+        }
+    </table>
+</div>

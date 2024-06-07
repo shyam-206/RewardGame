@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RewardGame_557Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WalletId" Type="Int32" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="IsDebitCredit" Type="Boolean" />
+    <Property Name="Time" Type="DateTime" Precision="3" Nullable="false" />
+    <NavigationProperty Name="Wallet" Relationship="Self.FK__Transacti__Walle__3C69FB99" FromRole="Transactions" ToRole="Wallet" />
+    <Property Name="TotalAmount" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Wallet" Relationship="Self.FK__Wallet__UserId__398D8EEE" FromRole="Users" ToRole="Wallet" />
+  </EntityType>
+  <EntityType Name="Wallet">
+    <Key>
+      <PropertyRef Name="WalletId" />
+    </Key>
+    <Property Name="WalletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Balance" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__Walle__3C69FB99" FromRole="Wallet" ToRole="Transactions" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Wallet__UserId__398D8EEE" FromRole="Wallet" ToRole="Users" />
+    <Property Name="ChanceLeft" Type="Int32" />
+  </EntityType>
+  <Association Name="FK__Transacti__Walle__3C69FB99">
+    <End Role="Wallet" Type="Self.Wallet" Multiplicity="0..1" />
+    <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wallet">
+        <PropertyRef Name="WalletId" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="WalletId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wallet__UserId__398D8EEE">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Wallet">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RewardGame_557Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Transactions" EntityType="Self.Transactions" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="Wallet" EntityType="Self.Wallet" />
+    <AssociationSet Name="FK__Transacti__Walle__3C69FB99" Association="Self.FK__Transacti__Walle__3C69FB99">
+      <End Role="Wallet" EntitySet="Wallet" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wallet__UserId__398D8EEE" Association="Self.FK__Wallet__UserId__398D8EEE">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Wallet" EntitySet="Wallet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
