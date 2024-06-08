@@ -2202,8 +2202,8 @@
     <Content Include="Theme\Dashboard\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Theme\Dashboard\vendor\jquery\jquery.min.map" />
     <Content Include="Theme\Dashboard\vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Views\Game\WalletPage.cshtml" />
     <Content Include="Views\Game\TransactionHistoryPage.cshtml" />
+    <Content Include="Views\Game\GamePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

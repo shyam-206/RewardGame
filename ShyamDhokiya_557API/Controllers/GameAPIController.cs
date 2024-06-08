@@ -14,13 +14,13 @@ namespace ShyamDhokiya_557API.Controllers
     {
         private readonly IUserRepository repo = new UserService();
 
-        [Route("api/GameAPI/GetTotalWalletAmount")]
+        [Route("api/GameAPI/GetWalletModelById")]
         [HttpGet]
-        public WalletModel GetTotalWalletAmount(int UserId)
+        public WalletModel GetWalletModelById(int UserId)
         {
             try
             {
-                WalletModel walletModel = repo.GetTotalWalletAmount(UserId);
+                WalletModel walletModel = repo.GetWalletModelById(UserId);
                 return walletModel;
             }
             catch (Exception ex)
@@ -62,13 +62,13 @@ namespace ShyamDhokiya_557API.Controllers
             }
         }
 
-        [Route("api/GameAPI/GetAllList")]
+        [Route("api/GameAPI/GetAllTransactionList")]
         [HttpGet]
-        public List<TransactionModel> GetAllList(int UserId)
+        public List<TransactionModel> GetAllTransactionList(int UserId)
         {
             try
             {
-                List<TransactionModel> transactionModelList = repo.GetAllList(UserId);
+                List<TransactionModel> transactionModelList = repo.GetAllTransactionList(UserId);
                 return transactionModelList != null ? transactionModelList : null;
             }
             catch (Exception)

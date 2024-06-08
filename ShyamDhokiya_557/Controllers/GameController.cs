@@ -20,8 +20,8 @@ namespace ShyamDhokiya_557.Controllers
         private readonly IUserRepository repo = new UserService();
         
 
-        public ActionResult WalletPage()
-        { 
+        public ActionResult GamePage()
+        {
             try
             {
                 return View();
@@ -39,15 +39,18 @@ namespace ShyamDhokiya_557.Controllers
             {
                 int UserId = SessionHelper.UserId;
                 WalletModel walletModel = new WalletModel();
-                string res = await WebHelper.HttpRequestResponse($"api/GameAPI/GetTotalWalletAmount?UserId={UserId}");
+                string res = await WebHelper.HttpRequestResponse($"api/GameAPI/GetWalletModelById?UserId={UserId}");
                 walletModel = JsonConvert.DeserializeObject<WalletModel>(res);
                 if(walletModel != null && walletModel.WalletId > 0)
                 {
-                    ViewBag.TotalAmount = walletModel.Balance;
+                    ViewBag.WalletAmount = walletModel.WalletAmount;
+                    ViewBag.TodayEarning = walletModel.TodayEarning;
+                    ViewBag.TotalEarning = walletModel.TotalEarning;
                     ViewBag.ChanceLeft = walletModel.ChanceLeft;
+
                 }
 
-                string res2 = await WebHelper.HttpRequestResponse($"api/GameAPI/GetAllList?UserId={UserId}");
+                string res2 = await WebHelper.HttpRequestResponse($"api/GameAPI/GetAllTransactionList?UserId={UserId}");
                 List<TransactionModel> transactionList = JsonConvert.DeserializeObject<List<TransactionModel>>(res2);
                 return View(transactionList);
 

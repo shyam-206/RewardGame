@@ -23,7 +23,7 @@
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Wallet">
           <Key>
@@ -34,7 +34,7 @@
           <Property Name="UserId" Type="int" />
           <Property Name="ChanceLeft" Type="int" />
         </EntityType>
-        <Association Name="FK__Transacti__Walle__6B24EA82">
+        <Association Name="FK__Transacti__Walle__778AC167">
           <End Role="Wallet" Type="Self.Wallet" Multiplicity="0..1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -46,7 +46,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Wallet__UserId__68487DD7">
+        <Association Name="FK__Wallet__UserId__74AE54BC">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -62,11 +62,11 @@
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wallet" EntityType="Self.Wallet" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Transacti__Walle__6B24EA82" Association="Self.FK__Transacti__Walle__6B24EA82">
+          <AssociationSet Name="FK__Transacti__Walle__778AC167" Association="Self.FK__Transacti__Walle__778AC167">
             <End Role="Wallet" EntitySet="Wallet" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Wallet__UserId__68487DD7" Association="Self.FK__Wallet__UserId__68487DD7">
+          <AssociationSet Name="FK__Wallet__UserId__74AE54BC" Association="Self.FK__Wallet__UserId__74AE54BC">
             <End Role="Users" EntitySet="Users" />
             <End Role="Wallet" EntitySet="Wallet" />
           </AssociationSet>
@@ -94,7 +94,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Wallet" Relationship="Self.FK__Wallet__UserId__398D8EEE" FromRole="Users" ToRole="Wallet" />
         </EntityType>
         <EntityType Name="Wallet">

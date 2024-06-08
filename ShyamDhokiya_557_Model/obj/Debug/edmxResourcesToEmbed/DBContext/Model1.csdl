@@ -19,7 +19,7 @@
     <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Wallet" Relationship="Self.FK__Wallet__UserId__398D8EEE" FromRole="Users" ToRole="Wallet" />
   </EntityType>
   <EntityType Name="Wallet">

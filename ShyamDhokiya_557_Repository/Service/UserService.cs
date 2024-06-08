@@ -19,14 +19,14 @@ namespace ShyamDhokiya_557_Repository.Service
             try
             {
                 int SaveAmountOrNot = 0;
-                int toalAmount = GetTodayTotalTransactionAmount(UserId);
+                int TodayTotalTransactionAmount = GetTodayTotalTransactionAmount(UserId);
                 Wallet wallet = _context.Wallet.FirstOrDefault(m => m.UserId == UserId);
                 if(wallet.ChanceLeft <= 0)
                 {
                     SaveAmountOrNot = -2; // not chance left
                     return SaveAmountOrNot;
                 }
-                else if(toalAmount > 500)
+                else if(TodayTotalTransactionAmount + RandomNumber > 500)
                 {
                     SaveAmountOrNot = -1;
                     return SaveAmountOrNot;
@@ -67,7 +67,7 @@ namespace ShyamDhokiya_557_Repository.Service
             {
                 int BuyChance = 0;
                 Wallet wallet = _context.Wallet.FirstOrDefault(m => m.UserId == UserId);
-                if(wallet != null && wallet.WalletId > 0 && wallet.Balance > 0)
+                if(wallet != null && wallet.WalletId > 0 && wallet.Balance > 0 && wallet.ChanceLeft == 0)
                 {
                     wallet.Balance = wallet.Balance - 20;
                     wallet.ChanceLeft = wallet.ChanceLeft + 1;
@@ -93,7 +93,7 @@ namespace ShyamDhokiya_557_Repository.Service
             }
         }
 
-        public List<TransactionModel> GetAllList(int UserId)
+        public List<TransactionModel> GetAllTransactionList(int UserId)
         {
             try
             {
@@ -111,31 +111,8 @@ namespace ShyamDhokiya_557_Repository.Service
                 throw ex;
             }
         }
-
-        public int GetTodayTotalTransactionAmount(int UserId) 
-        {
-            try
-            {
-                var today = DateTime.Now;
-                int TotalAmount = 0;
-                List<Transactions> list = _context.Transactions.Where(m => m.WalletId == UserId && m.Time.Day == today.Day && m.Time.Month == today.Month && m.Time.Year == today.Year && m.IsDebitCredit == true).ToList();
-                if(list != null)
-                {
-                    foreach(var item in list)
-                    {
-                        TotalAmount = (int)(TotalAmount + item.Amount);
-                    }
-                }
-                return TotalAmount;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public WalletModel GetTotalWalletAmount(int UserId)
+       
+        public WalletModel GetWalletModelById(int UserId)
         {
             try
             {
@@ -144,16 +121,61 @@ namespace ShyamDhokiya_557_Repository.Service
                 WalletModel walletModel = new WalletModel();
                 if(wallet != null)
                 {
-
                     walletModel.WalletId = wallet.WalletId;
                     walletModel.UserId = (int)wallet.UserId;
-                    walletModel.Balance = (int)wallet.Balance;
+                    walletModel.WalletAmount = (int)wallet.Balance;
+                    walletModel.TotalEarning = GetTotalEarningAmount(UserId);
+                    walletModel.TodayEarning = GetTodayTotalTransactionAmount(UserId);
                     walletModel.ChanceLeft = (int)wallet.ChanceLeft;
-                    
                 }
                 
 
                 return walletModel != null ? walletModel : null;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public int GetTodayTotalTransactionAmount(int UserId)
+        {
+            try
+            {
+                var today = DateTime.Now;
+                int TodayTotalTransactionAmount = 0;
+                List<Transactions> list = _context.Transactions.Where(m => m.WalletId == UserId && m.Time.Day == today.Day && m.Time.Month == today.Month && m.Time.Year == today.Year && m.IsDebitCredit == true).ToList();
+                if (list != null)
+                {
+                    foreach (var item in list)
+                    {
+                        TodayTotalTransactionAmount = (int)(TodayTotalTransactionAmount + item.Amount);
+                    }
+                }
+                return TodayTotalTransactionAmount;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public int GetTotalEarningAmount(int UserId)
+        {
+            try
+            {
+                int TotalEarningAmount = 0;
+                List<Transactions> transactions = _context.Transactions.Where(m => m.WalletId == UserId && m.IsDebitCredit == true).ToList();
+                if(transactions != null)
+                {
+                    foreach(var transaction in transactions)
+                    {
+                        TotalEarningAmount += (int)transaction.Amount;
+                    }
+                }
+                return TotalEarningAmount;
             }
             catch (Exception ex)
             {

@@ -10,7 +10,11 @@ namespace ShyamDhokiya_557_Model.ViewModel
     {
         public int WalletId { get; set; }
         public int UserId { get; set; }
-        public int Balance { get; set; }
+        public int WalletAmount { get; set; }
+        public int TotalEarning { get; set; }
+        public int TodayEarning { get; set; }
         public int ChanceLeft { get; set; }
+        public List<TransactionModel> List { get; set; }
+
     }
 }

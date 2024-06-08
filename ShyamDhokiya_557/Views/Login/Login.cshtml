@@ -35,10 +35,17 @@
             toastr.error('@TempData["LoginField"]')
         </script>
     }
+
     @if (@TempData["Logout"] != null)
     {
         <script>
             toastr.success('@TempData["Logout"]')
+        </script>
+    }
+    @if (@TempData["register"] != null)
+    {
+        <script>
+            toastr.success('@TempData["register"]')
         </script>
     }
     <div class="main">

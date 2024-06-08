@@ -1,0 +1,158 @@
+﻿<style>
+
+    .mainDiv {
+        height: 350px;
+        width: 700px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e0f7fa, #ffffff);
+    }
+
+    #Number {
+        height: 60px;
+        width: 100%;
+        border: 2px solid #007bff;
+        margin-top: 20px;
+        color: #007bff;
+        font-size: 30px;
+        font-weight: bold;
+        border-radius: 10px;
+        text-align: center;
+        line-height: 60px;
+        background-color: #e3f2fd;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .subDiv {
+        width: 100%;
+        padding: 20px 40px 20px 40px;
+        text-align: center;
+    }
+
+    .subDiv {
+        width: 100%;
+        padding: 20px 40px 20px 40px;
+        text-align: center;
+    }
+    .btn-custom {
+        width: 160px;
+        height: 45px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-custom:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.5);
+    }
+</style>
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="mainDiv">
+        <div class="subDiv">
+            <h1 class="text-info text-center mb-2">Lucky Draw Game</h1>
+            <p id="Number" class="text-center"></p>
+            <div class="mt-4 d-flex justify-content-center">
+                <button type="button" class="btn btn-success mx-2 btn-custom" id="generateNumber">Generate Number</button>
+                <button type="button" class="btn btn-success mx-2 btn-custom" id="buyChance">Buy Chances</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        @*$("#generateNumber").on("click", function () {
+            var randomNumber = Math.floor(Math.random() * 100) + 1;
+            $("#Number").text(randomNumber);
+            return
+            $.ajax({
+                type: "POST",
+                url: "/Game/AddAmount?RandomNumber=" + randomNumber,
+                success: function (data) {
+                    console.log(data.status)
+                    if (data.status == -2) {
+                        toastr.error("You have no chance left");
+                        return;
+                    } else if (data.status == -1) {
+                        toastr.error("You have Exceeed Today Limit");
+                        return;
+                    } else if (data.status == 1) {
+                        toastr.success("Added Amount SuccessFully");
+                        return
+                    } else {
+                        toastr.error("Something Went Wrong")
+                    }
+                }
+            })
+
+
+        })*@
+
+        $("#generateNumber").on("click", function () {
+            var randomNumber = Math.floor(Math.random() * 100) + 1;
+            var display = $("#Number");
+            display.text("0");
+            let currentNumber = 0;
+            const incrementTime = 20; // Time in ms between each increment
+
+            const incrementNumber = () => {
+                if (currentNumber < randomNumber) {
+                    currentNumber++;
+                    display.text(currentNumber);
+                    setTimeout(incrementNumber, incrementTime);
+                } else {
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/Game/AddAmount?RandomNumber=" + randomNumber,
+                        success: function (data) {
+                            console.log(data.status)
+                            if (data.status == -2) {
+                                toastr.error("You have no chance left please buy chance");
+                                return;
+                            } else if (data.status == -1) {
+                                toastr.error("You have Exceeded Today Limit");
+                                return;
+                            } else if (data.status == 1) {
+                                toastr.success(`Added ${randomNumber} Amount Successfully`);
+                                return;
+                            } else {
+                                toastr.error("Something Went Wrong");
+                                return;
+                            }
+                        }
+                    });
+
+                    display.text(randomNumber);
+                }
+            };
+
+            incrementNumber();
+        });
+        $("#buyChance").on("click", function () {
+            $.ajax({
+                type: "POST",
+                url: "/Game/BuyChance",
+                success: function (data) {
+                    if (data.success) {
+                        toastr.success("You buy a One Chance");
+                        return;
+                    } else {
+                        toastr.error("You Have a one Chance you can't buy more chance");
+                        return;
+                    }
+                }
+            })
+        })
+
+    })
+</script>
