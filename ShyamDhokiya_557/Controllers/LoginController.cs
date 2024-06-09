@@ -79,7 +79,7 @@ namespace ShyamDhokiya_557.Controllers
                     else
                     {
                         TempData["notSamePasssword"] = "Password must be Same";
-                        ModelState.AddModelError("ConfirmPassword", "Confimr Password not be same");
+                        ModelState.AddModelError("ConfirmPassword", "Confirm Password not be same");
                         return View(registerModel);
                     }
                 }

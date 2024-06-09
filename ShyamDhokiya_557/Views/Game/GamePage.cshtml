@@ -87,19 +87,10 @@
                     if (data.status == -2) {
                         toastr.error("You have no chance left, please buy a chance.");
                         return;
-                    } else if (data.status == -1) {
-                        toastr.error("You have exceeded today's limit.");
-                    } else if (data.status == 1) {
-                        toastr.success(`Added ${randomNumber} Amount Successfully`);
-                    } else {
-                        toastr.error("Something went wrong.");
                     }
-
                     // Start the spinner in all cases except when no chances are left (status -2)
-                    if (data.status != -2) {
+                    else if (data.status != -2) {
                         display.text("1");
-
-
                         const incrementNumber = () => {
                             if (currentNumber < 100) {
                                 currentNumber++;
@@ -109,14 +100,31 @@
                                 display.text(randomNumber)
                             }
                         };
-
+                        
                         incrementNumber();
+                        setTimeout(() => {
+                            if (data.status == -1) {
+                                toastr.error("You have exceeded today's limit After 24 hrs you can play again");
+                                display.text("");
+                                return;
+                            } else if (data.status = 1) {
+                                toastr.success(`Added ${randomNumber} Amount Successfully`);
+                                display.text("");
+                                return;
+                            }
+                        }, 2500)
+                        
+                    }else{
+                        toastr.error("Something went wrong.");
+                        return;
                     }
                 },
                 error: function () {
                     toastr.error("Something went wrong while processing your request.");
                 }
             });
+
+            
         });
 
         $("#buyChance").on("click", function () {
