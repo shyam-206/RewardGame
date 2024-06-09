@@ -14,21 +14,23 @@ namespace ShyamDhokiya_557_Repository.Service
     {
         private readonly RewardGame_557Entities _context = new RewardGame_557Entities();
 
-        public int AddTranaction(int RandomNumber,int UserId)
+        public int AddTranaction(int RandomNumber, int UserId)
         {
             try
             {
                 int SaveAmountOrNot = 0;
                 int TodayTotalTransactionAmount = GetTodayTotalTransactionAmount(UserId);
                 Wallet wallet = _context.Wallet.FirstOrDefault(m => m.UserId == UserId);
-                if(wallet.ChanceLeft <= 0)
+                if (wallet.ChanceLeft <= 0)
                 {
                     SaveAmountOrNot = -2; // not chance left
                     return SaveAmountOrNot;
                 }
-                else if(TodayTotalTransactionAmount + RandomNumber > 500)
+                else if (TodayTotalTransactionAmount + RandomNumber > 500)
                 {
                     SaveAmountOrNot = -1;
+                    wallet.ChanceLeft = wallet.ChanceLeft - 1;
+                    _context.SaveChanges();
                     return SaveAmountOrNot;
                 }
                 else
@@ -61,13 +63,19 @@ namespace ShyamDhokiya_557_Repository.Service
             }
         }
 
-        public bool BuyChance(int UserId)
+        public int BuyChance(int UserId)
         {
             try
             {
                 int BuyChance = 0;
                 Wallet wallet = _context.Wallet.FirstOrDefault(m => m.UserId == UserId);
-                if(wallet != null && wallet.WalletId > 0 && wallet.Balance > 0 && wallet.ChanceLeft == 0)
+
+                if (wallet.Balance < 20 && wallet.Balance >= 0)
+                {
+                    BuyChance = -1; //insufficient balance
+                    return BuyChance;
+                }
+                if (wallet != null && wallet.WalletId > 0 && wallet.Balance > 0 && wallet.ChanceLeft == 0)
                 {
                     wallet.Balance = wallet.Balance - 20;
                     wallet.ChanceLeft = wallet.ChanceLeft + 1;
@@ -82,14 +90,15 @@ namespace ShyamDhokiya_557_Repository.Service
                         Time = DateTime.Now
                     };
                     _context.Transactions.Add(transactions);
-                    BuyChance = _context.SaveChanges();
+                    _context.SaveChanges();
+                    BuyChance = 1;
                 }
-                return BuyChance > 0 ? true : false;
+                return BuyChance;
             }
             catch (Exception ex)
             {
 
-                throw ex; 
+                throw ex;
             }
         }
 
@@ -99,7 +108,7 @@ namespace ShyamDhokiya_557_Repository.Service
             {
                 List<TransactionModel> list = new List<TransactionModel>();
                 List<Transactions> transactions = _context.Transactions.Where(m => m.Wallet.UserId == UserId).OrderByDescending(m => m.TransactionId).ToList();
-                if(transactions != null)
+                if (transactions != null)
                 {
                     list = TransactionHelper.ConvertTransactionToTransactionModel(transactions);
                 }
@@ -111,7 +120,7 @@ namespace ShyamDhokiya_557_Repository.Service
                 throw ex;
             }
         }
-       
+
         public WalletModel GetWalletModelById(int UserId)
         {
             try
@@ -119,7 +128,7 @@ namespace ShyamDhokiya_557_Repository.Service
                 Wallet wallet = new Wallet();
                 wallet = _context.Wallet.Where(m => m.UserId == UserId).FirstOrDefault();
                 WalletModel walletModel = new WalletModel();
-                if(wallet != null)
+                if (wallet != null)
                 {
                     walletModel.WalletId = wallet.WalletId;
                     walletModel.UserId = (int)wallet.UserId;
@@ -128,7 +137,7 @@ namespace ShyamDhokiya_557_Repository.Service
                     walletModel.TodayEarning = GetTodayTotalTransactionAmount(UserId);
                     walletModel.ChanceLeft = (int)wallet.ChanceLeft;
                 }
-                
+
 
                 return walletModel != null ? walletModel : null;
             }
@@ -168,9 +177,9 @@ namespace ShyamDhokiya_557_Repository.Service
             {
                 int TotalEarningAmount = 0;
                 List<Transactions> transactions = _context.Transactions.Where(m => m.WalletId == UserId && m.IsDebitCredit == true).ToList();
-                if(transactions != null)
+                if (transactions != null)
                 {
-                    foreach(var transaction in transactions)
+                    foreach (var transaction in transactions)
                     {
                         TotalEarningAmount += (int)transaction.Amount;
                     }

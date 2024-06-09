@@ -48,11 +48,11 @@ namespace ShyamDhokiya_557API.Controllers
 
         [Route("api/GameAPI/BuyChance")]
         [HttpGet]
-        public bool BuyChance(int UserId)
+        public int BuyChance(int UserId)
         {
             try
             {
-                bool CheckBuyChnance = repo.BuyChance(UserId);
+                int CheckBuyChnance = repo.BuyChance(UserId);
                 return CheckBuyChnance;
             }
             catch (Exception ex)

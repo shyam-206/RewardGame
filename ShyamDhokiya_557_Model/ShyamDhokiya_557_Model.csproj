@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\LoginModel.cs" />
+    <Compile Include="ViewModel\PaginationModel.cs" />
     <Compile Include="ViewModel\RegisterModel.cs" />
     <Compile Include="ViewModel\TransactionModel.cs" />
     <Compile Include="ViewModel\WalletModel.cs" />

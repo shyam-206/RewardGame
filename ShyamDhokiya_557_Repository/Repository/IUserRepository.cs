@@ -15,6 +15,6 @@ namespace ShyamDhokiya_557_Repository.Repository
 
         List<TransactionModel> GetAllTransactionList(int UserId);
 
-        bool BuyChance(int UserId);
+        int BuyChance(int UserId);
     }
 }

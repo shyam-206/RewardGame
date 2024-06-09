@@ -141,9 +141,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Common\WebHelper.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="CustomFilter\CustomAuthenciateAttribute.cs" />
+    <Compile Include="CustomFilter\CustomErrorMessage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2029,7 +2031,6 @@
     <Content Include="Theme\Login\scss\layouts\main.scss" />
     <Content Include="Theme\Login\scss\layouts\responsive.scss" />
     <Content Include="Theme\Login\scss\style.scss" />
-    <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Theme\Dashboard\scss\navs\_global.scss" />
     <Content Include="Theme\Dashboard\scss\navs\_sidebar.scss" />
     <Content Include="Theme\Dashboard\scss\navs\_topbar.scss" />
@@ -2208,6 +2209,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -33,8 +33,19 @@ namespace ShyamDhokiya_557_Repository.Service
                         ChanceLeft = 3
                     };
                     _context.Wallet.Add(wallet);
-                    _context.SaveChanges();
+                    CheckUserSave = _context.SaveChanges();
 
+                    Transactions transaction = new Transactions
+                    {
+                        WalletId = user1.UserId,
+                        Amount = 100,
+                        TotalAmount = 100,
+                        IsDebitCredit = true,
+                        Time = DateTime.Now
+                    };
+
+                    _context.Transactions.Add(transaction);
+                    CheckUserSave = _context.SaveChanges();
                 }
 
                 return CheckUserSave > 0 ? true : false;
