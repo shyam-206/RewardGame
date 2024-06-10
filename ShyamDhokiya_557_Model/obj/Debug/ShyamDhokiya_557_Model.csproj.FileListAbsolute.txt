@@ -34,3 +34,15 @@ C:\Users\admin\Desktop\Exam\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Mo
 C:\Users\admin\Desktop\Exam\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.csproj.CopyComplete
 C:\Users\admin\Desktop\Exam\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.dll
 C:\Users\admin\Desktop\Exam\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.pdb
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\bin\Debug\ShyamDhokiya_557_Model.dll.config
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\bin\Debug\ShyamDhokiya_557_Model.dll
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\bin\Debug\ShyamDhokiya_557_Model.pdb
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\bin\Debug\EntityFramework.dll
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\bin\Debug\EntityFramework.xml
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.csproj.AssemblyReference.cache
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.csproj.CopyComplete
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.dll
+C:\Users\admin\Desktop\RewardGame\ShyamDhokiya_557_Model\obj\Debug\ShyamDhokiya_557_Model.pdb

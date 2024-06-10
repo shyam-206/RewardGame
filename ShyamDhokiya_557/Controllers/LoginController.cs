@@ -100,7 +100,7 @@ namespace ShyamDhokiya_557.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
-            TempData["Logout"] = "SuccessFully Logout";
+            TempData["Logout"] = "User Logout Successfully";
             return RedirectToAction("Login");
         }
     }
