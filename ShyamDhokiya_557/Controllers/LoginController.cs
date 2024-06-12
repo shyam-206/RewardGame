@@ -28,13 +28,26 @@ namespace ShyamDhokiya_557.Controllers
             if (ModelState.IsValid)
             {
                 
-                string res = await WebHelper.HttpPostRequestResponse("api/LoginAPI/ChechUserExist", JsonConvert.SerializeObject(loginModel));
-                RegisterModel UserExist = JsonConvert.DeserializeObject<RegisterModel>(res);
-                if (UserExist != null && UserExist.UserId > 0)
+                string res = await WebHelper.HttpPostRequestResponse("api/LoginAPI/CheckUserExist", JsonConvert.SerializeObject(loginModel));
+                var response = JsonConvert.DeserializeObject<LoginResponse>(res);
+                RegisterModel UserExist = response.RegisterModel;
+
+
+                if (UserExist != null &&  UserExist.UserId > 0 && response.Token != null)
                 {
                     SessionHelper.UserId = UserExist.UserId;
                     SessionHelper.Username = UserExist.Username;
                     SessionHelper.Useremail = UserExist.Email;
+
+                    string token = response.Token.ToString();
+                    var cookie = new HttpCookie("jwt", token)
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                    };
+                    Response.Cookies.Add(cookie);
+
+
                     TempData["Login"] = "User Login Successfully";
                     return RedirectToAction("TransactionHistoryPage", "Game");
                 }

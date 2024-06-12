@@ -1,6 +1,7 @@
 ﻿using ShyamDhokiya_557_Model.ViewModel;
 using ShyamDhokiya_557_Repository.Repository;
 using ShyamDhokiya_557_Repository.Service;
+using ShyamDhokiya_557API.JWTAuthentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +31,18 @@ namespace ShyamDhokiya_557API.Controllers
             }
         }
 
-        [Route("api/LoginAPI/ChechUserExist")]
+        [Route("api/LoginAPI/CheckUserExist")]
         [HttpPost]
-        public RegisterModel ChechUserExist(LoginModel loginModel)
+        public LoginResponse CheckUserExist(LoginModel loginModel)
         {
             try
             {
                 RegisterModel IsLoginUserExist = repo.CheckUserExist(loginModel);
-                return IsLoginUserExist;
+                var jwtToken = Authentication.GenerateJWTAuthetication(IsLoginUserExist.Email, "User");
+                LoginResponse loginResponse = new LoginResponse();
+                loginResponse.RegisterModel = IsLoginUserExist;
+                loginResponse.Token = jwtToken;
+                return loginResponse;
             }
             catch (Exception ex)
             {

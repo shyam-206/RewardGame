@@ -1,6 +1,7 @@
 ﻿using ShyamDhokiya_557_Model.ViewModel;
 using ShyamDhokiya_557_Repository.Repository;
 using ShyamDhokiya_557_Repository.Service;
+using ShyamDhokiya_557API.JWTAuthentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,11 @@ using System.Web.Http;
 
 namespace ShyamDhokiya_557API.Controllers
 {
+    [JwtAuthentication]
     public class GameAPIController : ApiController
     {
         private readonly IUserRepository repo = new UserService();
+
 
         [Route("api/GameAPI/GetWalletModelById")]
         [HttpGet]
@@ -32,7 +35,7 @@ namespace ShyamDhokiya_557API.Controllers
 
         [Route("api/GameAPI/AddTranaction")]
         [HttpGet]
-        public int AddTranaction(int RandomNumber,int UserId)
+        public int AddTranaction(int RandomNumber, int UserId)
         {
             try
             {
@@ -62,14 +65,21 @@ namespace ShyamDhokiya_557API.Controllers
             }
         }
 
+        
         [Route("api/GameAPI/GetAllTransactionList")]
         [HttpGet]
         public List<TransactionModel> GetAllTransactionList(int UserId)
         {
             try
             {
+               /* bool isTokenValid = (bool)Request.Properties["IsTokenValid"];
+                if (!isTokenValid)
+                {
+                    return null;
+                }*/
                 List<TransactionModel> transactionModelList = repo.GetAllTransactionList(UserId);
                 return transactionModelList != null ? transactionModelList : null;
+                
             }
             catch (Exception)
             {

@@ -50,7 +50,7 @@ namespace ShyamDhokiya_557.Controllers
                     ViewBag.ChanceLeft = walletModel.ChanceLeft;
 
                 }
-
+                var Token = Request.Cookies["jwt"].Value;
                 string res2 = await WebHelper.HttpRequestResponse($"api/GameAPI/GetAllTransactionList?UserId={UserId}");
                 List<TransactionModel> transactionList = JsonConvert.DeserializeObject<List<TransactionModel>>(res2);
 
