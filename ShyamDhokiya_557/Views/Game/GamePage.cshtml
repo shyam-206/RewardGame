@@ -121,6 +121,7 @@
                 },
                 error: function () {
                     toastr.error("Something went wrong while processing your request.");
+                    window.location.href = '/Shared/Error';
                 }
             });
 
@@ -147,6 +148,10 @@
                     } else {
                         toastr.error("Somthing went Wrong");
                     }
+                },
+                error: function () {
+                    toastr.error("Something went wrong while processing your request.");
+                    window.location.href = '/Shared/Error';
                 }
             })
         })

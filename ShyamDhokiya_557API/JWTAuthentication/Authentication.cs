@@ -28,10 +28,12 @@ namespace ShyamDhokiya_557API.JWTAuthentication
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(Convert.ToString(ConfigurationManager.AppSettings["config:JwtKey"])));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires =
+            /*var expires =
                 DateTime.Now.AddDays(
-                    Convert.ToDouble(Convert.ToString(ConfigurationManager.AppSettings["config:JwtExpireDays"])));
+                    Convert.ToDouble(Convert.ToString(ConfigurationManager.AppSettings["config:JwtExpireDays"])));*/
+            double expireMinutes = Convert.ToDouble(ConfigurationManager.AppSettings["config:JwtExpireDays"]);
 
+            DateTime expires = DateTime.Now.AddMinutes(expireMinutes);
             var token = new JwtSecurityToken(
                 Convert.ToString(ConfigurationManager.AppSettings["config:JwtIssuer"]),
                 Convert.ToString(ConfigurationManager.AppSettings["config:JwtAudience"]),
