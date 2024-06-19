@@ -24,7 +24,7 @@ namespace ShyamDhokiya_557.Common
 
                     if (token != null)
                     {
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token);
                     }
 
                     HttpResponseMessage resonse = await client.GetAsync(url);

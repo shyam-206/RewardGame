@@ -46,8 +46,6 @@ namespace ShyamDhokiya_557API.JWTAuthentication
 
 
         }
-
-
         public static string ValidateToken(string token)
         {
             if (token == null)
@@ -70,7 +68,7 @@ namespace ShyamDhokiya_557API.JWTAuthentication
                 // Corrected access to the validatedToken
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var jku = jwtToken.Claims.First(claim => claim.Type == "jku").Value;
-                var Username = jwtToken.Claims.First(claim => claim.Type == "kid").Value;
+                var Username = jwtToken.Claims.First(claim => claim.Type == "jku").Value;
 
                 return Username;
             }

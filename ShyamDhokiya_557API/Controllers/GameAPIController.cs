@@ -28,7 +28,6 @@ namespace ShyamDhokiya_557API.Controllers
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -42,10 +41,9 @@ namespace ShyamDhokiya_557API.Controllers
                 int SaveAmount = repo.AddTranaction(RandomNumber, UserId);
                 return SaveAmount;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
         }
 
@@ -60,7 +58,6 @@ namespace ShyamDhokiya_557API.Controllers
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
